@@ -29,8 +29,6 @@ Module not found: Error: Can't resolve 'babel-loader' in '/Users/cooneyk/Desktop
 npm i --save-dev babel-loader
 
 TO DO:
-Add git init, create repo
-
 
 Desirables
 Setup firebase so that automated deployments can happen.
