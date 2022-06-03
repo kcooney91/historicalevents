@@ -2,7 +2,7 @@ const decoder = new TextDecoder();
 
 function processChunkedResponse(response, callback) {
   const check = new RegExp('"event": {(.*?)"}', "g");
-  
+  let result;
   const reader = response.body.getReader();
 
   reader.read().then(function processText({ done, value }) {
@@ -10,7 +10,7 @@ function processChunkedResponse(response, callback) {
     // done  - true if the stream has already given you all its data.
     // value - some data. Always undefined when done is true.
     if (done) {
-      return done;
+      return parsedData;
     }
 
     // value for fetch streams is a Uint8Array
@@ -37,12 +37,15 @@ const fetchAPI = async (callback) => {
   let result;
   try {
     fetch(
-      "https://www.vizgr.org/historical-events/search.php?format=json&begin_date=-3000000&end_date=20151231&lang=en"
+      "https://www.vizgr.org/historical-events/search.php?format=json&begin_date=-3000000&end_date=20151231&lang=en&limit=100"
     ).then((response) => {
       processChunkedResponse(response, callback);
-    });
+    })
+    .then((response) => {
+      return
+    })
   } catch (e) {
-    return "There is something wrong with the API:" + e;
+    throw "There is something wrong with the API:" + e;
   }
 };
 
