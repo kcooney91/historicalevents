@@ -3,6 +3,9 @@ const decoder = new TextDecoder();
 function processChunkedResponse(response, callback) {
   const check = new RegExp('"event": {(.*?)"}', "g");
   let result;
+  if(!response.body){
+    return "body empty"
+  }
   const reader = response.body.getReader();
 
   reader.read().then(function processText({ done, value }) {
@@ -14,8 +17,9 @@ function processChunkedResponse(response, callback) {
     }
 
     // value for fetch streams is a Uint8Array
+    console.log("VAAAALUE",value);
     result += decoder.decode(value);
-
+    
     let parsedData = [];
     //Match all events in this chunk, add remaining text to param so half events are picked up in the next round.
     result = result.replace(
@@ -33,17 +37,16 @@ function processChunkedResponse(response, callback) {
 }
 
 const fetchAPI = async (callback) => {
-  const check = new RegExp('"event": {(.*?)"}', "g");
-  let result;
   try {
     fetch(
       "https://www.vizgr.org/historical-events/search.php?format=json&begin_date=-3000000&end_date=20151231&lang=en"
-    ).then((response) => {
-      processChunkedResponse(response, callback);
-    })
-    .then((response) => {
-      return
-    })
+    )
+      .then((response) => {
+        processChunkedResponse(response, callback);
+      })
+      .then((response) => {
+        return;
+      });
   } catch (e) {
     throw "There is something wrong with the API:" + e;
   }
