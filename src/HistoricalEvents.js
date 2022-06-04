@@ -1,29 +1,15 @@
 import React from "react";
+import EventList from "./components/EventList";
 
-
-
-export async function fetchHandler(limit=1000, offset=0) {
-    try {
-        let response = await fetch(`https://www.vizgr.org/historical-events/search.php?format=json&begin_date=19001231&end_date=20151231&lang=en&limit=${limit}&offset=${offset}`);
-        let data =  await response.json();
-        console.log(data)
-        return data;
-    }
-    catch (e) {
-        return "There is something wrong with the API";
-    }
-    
-}
+import Container from 'react-bootstrap/Container';
 
 const HistoricalEvents = () => {
-    
-    fetchHandler()
-
-    return (
-        <section id="heading">
-            <h1>Initial base for Historical Events App - this is a WIP</h1>
-        </section>
-    )
-}
+  return (
+    <Container fluid>
+        <h1>Initial base for Historical Events App - this is a WIP</h1>
+        <EventList />
+    </Container>
+  );
+};
 
 export default HistoricalEvents;
