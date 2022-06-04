@@ -7,7 +7,7 @@ function processChunkedResponse(response, callback) {
     return "body empty"
   }
   const reader = response.body.getReader();
-
+  let parsedData = [];
   reader.read().then(function processText({ done, value }) {
     // Result objects contain two properties:
     // done  - true if the stream has already given you all its data.
@@ -17,20 +17,35 @@ function processChunkedResponse(response, callback) {
     }
 
     // value for fetch streams is a Uint8Array
-    console.log("VAAAALUE",value);
     result += decoder.decode(value);
     
-    let parsedData = [];
     //Match all events in this chunk, add remaining text to param so half events are picked up in the next round.
+    //We should really sanitize the data too to remove Wiki specific markup language
     result = result.replace(
       check,
       function (fullStringMatch, regexWildcard, length) {
-        parsedData.push(JSON.parse("{" + regexWildcard + '"}'));
+        let singleEvent = JSON.parse("{" + regexWildcard + '"}')
+        singleEvent.description = singleEvent.description.replace(
+          /<a href="(.*?)">(.*?)<\/a>/g,
+          `<a href="$1">EXTERNAL LINK</a>`
+        )
+        singleEvent.description = singleEvent.description.replace(
+          /{{(.*?)}}/g,
+          ""
+        )
+        singleEvent.description = singleEvent.description.replace(
+          /ampamp/g,
+          " "
+        )
+        parsedData.push(singleEvent);
       }
     );
 
-    //Send back the update so we can show it in the UI
-    callback(parsedData);
+    //Send back the update so we can show it in the UI. Reduce rerenders by only updating when we have 2500 results
+    if(parsedData.length > 2000){
+      callback(parsedData);
+      parsedData = []
+    }
     // Read the next stream chunk and process it
     return reader.read().then(processText);
   });
@@ -46,7 +61,10 @@ const fetchAPI = async (callback) => {
       })
       .then((response) => {
         return;
+      }).catch((e) => {
+        callback(e.toString())
       });
+
   } catch (e) {
     throw "There is something wrong with the API:" + e;
   }

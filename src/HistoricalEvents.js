@@ -1,16 +1,14 @@
 import React from "react";
 import EventList from "./components/EventList";
 
+import Container from 'react-bootstrap/Container';
+
 const HistoricalEvents = () => {
   return (
-    <>
-      <section id="heading">
+    <Container fluid>
         <h1>Initial base for Historical Events App - this is a WIP</h1>
-      </section>
-      <section className="row">
         <EventList />
-      </section>
-    </>
+    </Container>
   );
 };
 
