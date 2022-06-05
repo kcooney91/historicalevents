@@ -1,5 +1,5 @@
 import EventList from "./EventList";
-import fetchAPI from "./Functional/fetchAPI";
+import FetchAPI from "../../Functional/FetchAPI";
 
 import Enzyme from "enzyme";
 import Adapter from "@cfaester/enzyme-adapter-react-18";
@@ -54,7 +54,7 @@ describe("Test <EventList /> rendering", () => {
 
 describe("API Testing", () => {
   it("Checks API Call", () => {
-    fetchAPI().then(() => {
+    FetchAPI().then(() => {
       expect(fetch).toHaveBeenCalledTimes(1);
       expect(fetch).toHaveBeenCalledWith(
         "https://www.vizgr.org/historical-events/search.php?format=json&begin_date=-3000000&end_date=20151231&lang=en"
