@@ -1,0 +1,39 @@
+@keyframes pulse {
+  }
+
+.events{
+    width: 100%
+}
+.eventsTable {
+    width: 90%;
+    margin: 0 5% 0 5%;
+}
+.userMessage{
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+}
+.userNotification{
+    background-color: #e0880c;
+    border-radius: 5px;
+    padding: 5px;
+    animation: pulse 2s infinite;
+}
+.eventsTable tr, .eventsTable th, .eventsTable td {
+    border: 1px solid #000000;
+}
+
+.date{
+    width: 100px;
+    text-align: center;
+}
+.description{
+    width: calc(100% - 100px);
+    word-break: normal;
+}
+
+@media screen and (max-width: 600px){
+    .description{
+        word-break: break-all;
+    }
+}

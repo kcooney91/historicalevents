@@ -1,0 +1,12 @@
+.searchArea{
+    width: 90%;
+    margin: 1em 5% 1em 5%;
+}
+.search {
+    width: calc(100% - 110px);
+    border: 1px solid #000000;
+}
+
+.label {
+    width: 110px;
+}
