@@ -1,5 +1,5 @@
 import React from "react";
-import EventList from "./components/EventList";
+import EventList from "./components/UI/Events/EventList";
 
 import styles from "./HistoricalEvents.module.css";
 
