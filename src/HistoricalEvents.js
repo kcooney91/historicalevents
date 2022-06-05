@@ -1,15 +1,15 @@
 import React from "react";
-import EventList from "./components/EventList";
+import EventList from "./components/UI/Events/EventList";
 
-import Container from 'react-bootstrap/Container';
+import styles from "./HistoricalEvents.module.css";
 
 const HistoricalEvents = () => {
-  return (
-    <Container fluid>
-        <h1>Initial base for Historical Events App - this is a WIP</h1>
-        <EventList />
-    </Container>
-  );
+    return (
+        <>
+            <h1 className={styles.heading}>Application that pulls in data from an API, displays it in a table to the user and allows them to search</h1>
+            <EventList />
+        </>
+    );
 };
 
 export default HistoricalEvents;
