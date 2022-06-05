@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import Search from "./Search";
-import fetchAPI from "./Functional/fetchAPI";
+import Search from "../Search/Search";
+import FetchAPI from "../../Functional/FetchAPI";
 
 import styles from "./EventList.module.css";
 
@@ -14,7 +14,7 @@ const EventList = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        fetchAPI(fetchMoreEvents);
+        FetchAPI(fetchMoreEvents);
         setIsLoadingEvents(true);
     }, []);
 

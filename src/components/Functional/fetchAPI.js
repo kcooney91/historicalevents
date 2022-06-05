@@ -55,7 +55,7 @@ function processChunkedResponse(response, callback) {
     });
 }
 
-const fetchAPI = async (callback) => {
+const FetchAPI = async (callback) => {
     try {
         fetch(
             "https://www.vizgr.org/historical-events/search.php?format=json&begin_date=-3000000&end_date=20151231&lang=en"
@@ -74,4 +74,4 @@ const fetchAPI = async (callback) => {
     }
 };
 
-export default fetchAPI;
+export default FetchAPI;
